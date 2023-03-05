@@ -1,0 +1,34 @@
+<!-- view_post.html -->
+
+{% extends 'base.html' %}
+
+{% block title %} {{ post.title }} {% endblock %}
+
+{% block content %}
+<div class="container">
+
+ 
+    <div class="row">
+        <div class="col-md-4">
+            <h2>{{ blogpost.title }}</h2>
+            <p>{{ blogpost.content }}</p>
+            <div class="row">
+                
+                <img
+                max-width: 10%;
+                height: 10%; src= "{{ blogpost.image.url }}">
+                {% for immagine in blogpost.blogimage_set.all %}
+                    <div="col-md-4">
+                    <img  max-width: 10%;
+                    height: 10%;
+                    src= " {{immagine.image.url }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+    <p>Written by {{ post.author }} on {{ post.created_at }}</p>
+
+{% endblock %}

@@ -1,0 +1,13 @@
+
+
+<!-- In questo template, 
+    si può usare l'oggetto form per rendere i campi del form
+     e il token csrf e il pulsante di invio -->
+
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Create Post">
+    </form>
+    

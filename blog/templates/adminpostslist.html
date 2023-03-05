@@ -1,0 +1,38 @@
+<!-- view_post.html -->
+{% extends 'adminbase.html' %}
+{% block title %} Tutti i post {% endblock %}
+{% block content %}
+
+<div class = "container"> 
+    <div class="row">
+        
+            <h3>Tutti i post</h3> <hr>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>SN</th>
+                        <th>Titolo</th>
+                        <th>Immagine</th>
+                        <th>Visite al post</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                        {% for p in allposts%}
+                        <tr>
+                            <td>{{forloop.counter}}</td>
+                            <td>{{p.title}}</td>
+                            <td><img src="{{p.image.url}}" style ="height: 60px;" alt=""></td>
+                            <td>{{p.view_count}}</td>
+                        </tr>
+                        {%endfor%}
+                    
+                </tbody>
+            </table>
+
+            <a href="/logout">logout</a>        
+    </div>
+</div>
+
+
+{% endblock %}
