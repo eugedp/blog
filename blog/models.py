@@ -2,10 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 import os
 from pathlib import Path
-
+from django.views.generic.edit import UpdateView
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 class Admin(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -16,8 +15,6 @@ class Admin(models.Model):
     def __str__(self):
         return self.user.username
 
-
-
 class Customer(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=200)
@@ -26,8 +23,6 @@ class Customer(models.Model):
 
     def __str__(self):
         return self.full_name
-
-
 
 class BlogPost(models.Model):
     title = models.CharField(max_length=255)

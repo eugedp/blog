@@ -25,6 +25,14 @@
                     </div>
                 {% endfor %}
             </div>
+            <a class="dropdown-item" 
+            href="{% url 'modifica_post' pk=blogpost.id %}"
+            data-toggle="tooltip" data-placement="right" 
+            title="Modifica i dati del passaporto del Militare"
+            >
+            <i class="fas fa-edit"></i> 
+            Modifica Passaporto
+        </a>
         </div>
     </div>
 </div>
