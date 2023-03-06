@@ -52,8 +52,6 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 
-
-
 def homepage(request):
     return HttpResponse ("<h1>Homepage</h1>")
 
@@ -64,8 +62,6 @@ def chi_siamo(request):
 
 def contatti(request):
     return HttpResponse ("<h3>Contattaci</h3>") 
-
-
 
 def login_view(request):
     if request.method == 'POST':
@@ -85,9 +81,6 @@ class LogoutView(View):
         logout(request)
         return redirect("/")
 
-
-
-
 def view_post(request, post_id):
     blogpost = BlogPost.objects.get(pk=post_id)
     blogpost.view_count += 1
@@ -103,11 +96,19 @@ class AdminPostsListView(AdminRequiredMixin, ListView):
 
 
 class CreaPost(AdminRequiredMixin,CreateView):
-    template_name = "create_blog_post.html"
+    template_name = "create_post.html"
     form_class = BlogPostForm
 
     def get_success_url(self):
         return reverse('view_post',args=(self.object.id,))
+
+    def form_valid(self, form):
+        p = form.save()
+        images = self.request.FILES.getlist("more_images")
+        for i in images:
+            BlogImage.objects.create(blogpost=p, image=i)
+        return super().form_valid(form)    
+    
 
 class BlogPostModifica(AdminRequiredMixin,UpdateView):
     model = BlogPost
@@ -129,8 +130,16 @@ class BlogPostModifica(AdminRequiredMixin,UpdateView):
     def form_valid(self, form):
         messages.success(self.request, "Modifica effettuata con successo")
         original_instance = BlogPost.objects.get(pk=self.object.id)
-        super().form_valid(form)
+        p = form.save()
+        images = self.request.FILES.getlist("more_images")
+        if len(images) > 0:
+            BlogImage.objects.filter(blogpost=original_instance.id).delete( )
+            #YourModel.objects.filter().delete()
+            for i in images:
+                BlogImage.objects.create(blogpost=p, image=i)
+        super().form_valid(form)    
         return HttpResponseRedirect(self.get_success_url())
+
         
     def get_success_url(self):
         self.object = self.get_object()

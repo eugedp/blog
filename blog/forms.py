@@ -5,6 +5,11 @@ from django.contrib.auth.forms import UserCreationForm
 
 
 class BlogPostForm(forms.ModelForm):
+    more_images = forms.FileField(required=False, widget=forms.FileInput(attrs={
+    "class": "form-control",
+    "multiple": True
+    }))
+
     class Meta:
         model = BlogPost
         fields = ['title', 'content','image']
