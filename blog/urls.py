@@ -32,6 +32,7 @@ if settings.DEBUG:
         path('login/', login_view, name='login'),
         path('crea_post/', CreaPost.as_view(), name='crea_post'),
         path('crea_post/<int:pk>', BlogPostModifica.as_view(), name='modifica_post'),
+        path('elimina_post/<str:pk>', BlogPostDelete.as_view(), name='elimina_post'),
         path('view_post/<int:post_id>/', view_post, name='view_post'),
         path("postslist/", AdminPostsListView.as_view(), name="adminpostslist"),
         path("logout/", LogoutView.as_view(), name="customerlogout"),

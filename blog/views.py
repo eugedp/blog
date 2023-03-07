@@ -110,6 +110,23 @@ class CreaPost(AdminRequiredMixin,CreateView):
         return super().form_valid(form)    
     
 
+class BlogPostDelete(AdminRequiredMixin, DeleteView):
+    # specify the model you want to use
+    model = BlogPost
+    success_url ="../postslist"
+    template_name = "elimina_post.html"
+    success_message = "Post eliminato con successo."
+    
+    def get(self, request, *args, **kwargs):
+        return self.post(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        self.object = self.get_object()
+        testo = 'Post ' + str(self.object.title) + ' eliminato.'
+        return super(BlogPostDelete, self).delete(request, *args, **kwargs)
+
+
 class BlogPostModifica(AdminRequiredMixin,UpdateView):
     model = BlogPost
     form_class = BlogPostForm

@@ -14,9 +14,11 @@
             <p>{{ blogpost.content }}</p>
             <div class="row">
                 
+                {% if blogpost.image %}
                 <img
                 max-width: 10%;
-                height: 10%; src= "{{ blogpost.image.url }}">
+                height: 10%;
+                src= "{{ blogpost.image.url }}">
                 {% for immagine in blogpost.blogimage_set.all %}
                     <div="col-md-4">
                     <img  max-width: 10%;
@@ -24,15 +26,29 @@
                     src= " {{immagine.image.url }}">
                     </div>
                 {% endfor %}
+                {% endif %}
             </div>
             <a class="dropdown-item" 
             href="{% url 'modifica_post' pk=blogpost.id %}"
             data-toggle="tooltip" data-placement="right" 
-            title="Modifica i dati del passaporto del Militare"
-            >
+            title="Modifica il post">
             <i class="fas fa-edit"></i> 
-            Modifica Passaporto
-        </a>
+            Modifica Post
+            </a>
+
+            <a class="dropdown-item" 
+            href="{% url 'elimina_post' pk=blogpost.id %}" 
+            onclick="return confirm('Sei sicuro di voler eliminare il post?')" 
+            class="btn btn-circle btn-danger m-l-10 m-r-10" 
+            data-toggle="tooltip" data-placement="right" 
+            title="Elimina il Post">
+            <i class="fas fa-trash"></i>
+            Elimina Post
+            </a>
+
+
+
+
         </div>
     </div>
 </div>
