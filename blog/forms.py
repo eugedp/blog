@@ -12,7 +12,7 @@ class BlogPostForm(forms.ModelForm):
 
     class Meta:
         model = BlogPost
-        fields = ['title', 'content','image']
+        fields = ['title', 'content','image', 'traccia']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control'}),

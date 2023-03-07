@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
 import os
 from pathlib import Path
@@ -32,7 +33,7 @@ class BlogPost(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     image = models.ImageField(upload_to='', blank=True, null=True)
     view_count = models.PositiveIntegerField(default=0)
-    
+    traccia = models.FileField(upload_to='tracce/', validators=[FileExtensionValidator(['gpx'])] , blank=True, null=True )    
     def __str__(self):
         return self.title
 
